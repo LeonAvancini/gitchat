@@ -1,0 +1,63 @@
+---
+description: React component patterns, animations, and accessibility conventions
+globs: "**/*.tsx"
+alwaysApply: false
+---
+
+# React Component Conventions
+
+## File structure
+
+Each component lives in its own folder:
+
+```
+ComponentName/
+  ComponentName.tsx          # Implementation
+  ComponentName.module.scss  # Colocated SCSS module
+  index.ts                   # Barrel export: export { ComponentName } from './ComponentName';
+```
+
+Use **named exports** for components (except `App` which is a default export).
+
+## Framer Motion
+
+All entrance animations use the shared easing curve `[0.22, 1, 0.36, 1]` for consistency.
+
+Staggered reveals use small incremental delays (`delay: i * 0.06`). Keep durations short (0.3–0.5s).
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, x: -20 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.35, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+>
+```
+
+## Accessibility
+
+Interactive non-button elements must include:
+- `role="button"` and `tabIndex={0}`
+- `onKeyDown` handler for Enter and Space
+- `aria-label` with meaningful description
+
+```tsx
+<div
+  role="button"
+  tabIndex={0}
+  onClick={() => handleClick(item)}
+  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleClick(item); }}
+  aria-label={`${item.name} — ${item.stars} stars`}
+>
+```
+
+## Types
+
+All shared types live in `src/types/index.ts`. Import with `import type { ... }` (enforced by `verbatimModuleSyntax`).
+
+## Interaction patterns
+
+- **Heatmap day click** → `narrateDay(day)` on the chat store → playful/humorous commentary
+- **Repo bar click** → `narrateRepo(repo)` on the chat store → formal, description-focused summary
+- **Chat send** → `sendMessage(content)` → stats-aware response via pattern matching
+
+On mobile, after triggering any interaction, auto-scroll/focus to the chat response.

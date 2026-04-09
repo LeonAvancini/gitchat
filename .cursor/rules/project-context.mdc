@@ -1,0 +1,61 @@
+---
+description: Core project context, architecture, and design philosophy for gitchat
+alwaysApply: true
+---
+
+# gitchat — Project Context
+
+## What this is
+
+A conversational interface for exploring a GitHub profile's contribution activity. All data is **mocked** — design quality and interaction are the focus, not API integration. The data layer is separated cleanly so it can be swapped for real APIs later.
+
+## Design direction
+
+**"Editorial + Data Sculpture"** — magazine-spread aesthetic, not a typical SaaS dashboard. Avoid looking like a GitHub/Linear/Vercel clone.
+
+Key principles:
+- Large typography, generous whitespace, intentional asymmetry
+- Two-register layout: editorial side (profile, heatmap, repos) + marginalia column (conversation)
+- The heatmap is a **visual centerpiece**, not a sidebar widget
+- Narration has **two tones**: heatmap clicks are playful/witty, repo clicks are formal/informative
+
+## Tech stack
+
+| Tool | Purpose |
+|------|---------|
+| React 19 + TypeScript | UI framework |
+| Vite | Build tool |
+| SCSS Modules + design tokens | Styling (`src/styles/tokens/`) |
+| Zustand | State management (chat store, layout store) |
+| Framer Motion | Animations and layout transitions |
+| ESLint 9 (flat config) + Prettier | Lint and format |
+
+## Project structure
+
+```
+src/
+  components/       # Feature components, each in its own folder
+    Profile/        # Profile.tsx + Profile.module.scss + index.ts
+    Heatmap/
+    RepoStack/
+    Conversation/
+  data/             # Mock data generators (contributions, profile, repos)
+  lib/              # Business logic (store, stats engine, responses, commentary)
+  styles/           # Global styles and design tokens
+    tokens/         # _colors.scss, _typography.scss, _spacing.scss
+  types/            # Shared TypeScript interfaces
+```
+
+## Node version
+
+Pinned in `.nvmrc` — always run `nvm use` first.
+
+## Conventions at a glance
+
+- 2-space indent, single quotes, semicolons, trailing commas (Prettier enforced)
+- `printWidth: 100`; JSX uses double quotes
+- Named exports for components; `App` uses default export
+- One component per folder with colocated SCSS module and barrel `index.ts`
+- Shared animation easing: `[0.22, 1, 0.36, 1]` across all components
+- `localStorage` used for persisting chat panel side preference
+- `prefers-reduced-motion` respected globally in `global.scss`

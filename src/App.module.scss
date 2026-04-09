@@ -1,0 +1,44 @@
+@use './styles/tokens' as *;
+
+.layout {
+  display: flex;
+  max-width: $page-max-width;
+  margin: 0 auto;
+  min-height: 100vh;
+
+  @media (max-width: $bp-md) {
+    flex-direction: column;
+    max-width: 100%;
+  }
+}
+
+.reversed {
+  flex-direction: row-reverse;
+
+  @media (max-width: $bp-md) {
+    flex-direction: column;
+  }
+}
+
+.editorial {
+  flex: 1;
+  min-width: 0;
+  padding: $space-3xl $page-gutter $space-2xl;
+  animation: fadeSlide 0.35s ease both;
+
+  @media (max-width: $bp-md) {
+    padding: $space-xl $space-lg $space-lg;
+  }
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0.4;
+    transform: translateX(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

@@ -1,0 +1,57 @@
+---
+description: SCSS token system, modules, and styling conventions
+globs: "**/*.scss"
+alwaysApply: false
+---
+
+# SCSS & Styling Conventions
+
+## Token system
+
+All design tokens live in `src/styles/tokens/` and are forwarded through `_index.scss`:
+
+| File | Contents |
+|------|----------|
+| `_colors.scss` | Backgrounds, text hierarchy, accent, borders, heatmap palette, tooltip |
+| `_typography.scss` | Font stacks (display/body/mono), weights, type scale, leading, tracking |
+| `_spacing.scss` | Spacing scale, page gutter/max-width, radii, breakpoints |
+
+Import tokens in any SCSS module with `@use '../../styles/tokens' as *;` (adjust path depth).
+
+## Color palette
+
+Earthy, warm tones — not the default GitHub greens:
+- Background: `$color-bg` (#f5f2ed), elevated: `$color-bg-elevated` (#ffffff)
+- Accent: `$color-accent` (#c8442e) — used for selection highlight and role accents
+- Heatmap: `$color-heatmap-empty` through `$color-heatmap-l4` (cream → dark brown)
+
+## Typography
+
+Three font stacks with distinct roles:
+- **`$font-display`**: Instrument Serif — profile name, hero headings
+- **`$font-body`**: Inter — body text, UI labels, chat messages
+- **`$font-mono`**: JetBrains Mono — code-like elements, stats
+
+Type scale goes from `$type-scale-xs` (0.75rem) to `$type-scale-hero` (7rem).
+
+## Breakpoints
+
+Prefix is `$bp-` (bp = breakpoint):
+- `$bp-sm`: 640px
+- `$bp-md`: 960px
+- `$bp-lg`: 1280px
+- `$bp-xl`: 1536px
+
+Use `@media (max-width: $bp-md)` for mobile/tablet overrides.
+
+## SCSS Modules
+
+Every component has a colocated `.module.scss` file. Use `composes` sparingly — prefer token variables directly. Class names use camelCase in TypeScript (`styles.repoStack`).
+
+## Global styles
+
+`global.scss` handles:
+- Google Fonts import (Instrument Serif, Inter, JetBrains Mono)
+- Base font-size (16px, 14px on small screens)
+- Selection color using `$color-accent`
+- `prefers-reduced-motion` — disables all animations/transitions globally

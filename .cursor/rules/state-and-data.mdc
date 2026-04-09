@@ -1,0 +1,48 @@
+---
+description: Zustand store patterns, mock data layer, and business logic conventions
+globs: "src/lib/**/*.ts,src/data/**/*.ts"
+alwaysApply: false
+---
+
+# State Management & Data Layer
+
+## Zustand stores
+
+Two stores, each in `src/lib/`:
+
+### `store.ts` — Chat store (`useChatStore`)
+- **State**: `messages`, `status` (`'idle' | 'thinking' | 'typing'`), `suggestions`
+- **Actions**: `sendMessage(content)`, `narrateDay(day)`, `narrateRepo(repo)`
+- Simulated latency with `setTimeout` chains (thinking → typing → response)
+- Guard against concurrent narration: `if (get().status !== 'idle') return;`
+- Initial message is an instructional welcome, not a stats dump
+
+### `layoutStore.ts` — Layout store (`useLayoutStore`)
+- **State**: `side` (`'right' | 'left'`)
+- **Actions**: `toggle()`
+- Persisted to `localStorage` under key `gitchat-layout-side`
+- Silently falls back to `'right'` if storage is unavailable
+
+## Mock data (`src/data/`)
+
+All data is mocked and deterministic:
+
+- **`contributions.ts`**: Seeded random generator for 52 weeks of contribution data. Produces realistic patterns (seasonal variation, weekend dips). Same output on every refresh.
+- **`profile.ts`**: Static mock profile with stats (repos, followers, following, stars).
+- **`repos.ts`**: Array of mock repositories with name, description, language, stars, forks.
+
+The data layer is separated from UI so it can be swapped for real API calls without touching components.
+
+## Business logic (`src/lib/`)
+
+- **`stats.ts`**: `computeStats(days)` — derives aggregate stats (streaks, busiest day, averages) from contribution data.
+- **`responses.ts`**: `generateResponse(query, stats)` — pattern-matching engine that maps user queries to stats-aware answers.
+- **`commentary.ts`**: `generateCommentary(day)` for playful heatmap narration, `generateRepoCommentary(repo)` for formal repo summaries.
+
+## Adding new interactions
+
+Follow the existing pattern:
+1. Add an action to the chat store interface
+2. Implement with thinking → typing → response delay chain
+3. Generate the response text in `commentary.ts` or `responses.ts`
+4. Wire up from the component via `useChatStore((s) => s.yourAction)`
