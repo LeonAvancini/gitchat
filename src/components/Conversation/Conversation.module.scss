@@ -1,0 +1,294 @@
+@use '../../styles/tokens' as *;
+
+.conversation {
+  display: flex;
+  flex-direction: column;
+  width: $marginalia-width;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  border-left: 1px solid $color-border;
+  background: $color-bg;
+  overflow-x: hidden;
+
+  @media (min-width: $bp-xl) {
+    width: 30rem;
+  }
+
+  @media (max-width: $bp-md) {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-left: none;
+    border-top: 1px solid $color-border;
+  }
+}
+
+.onLeft {
+  border-left: none;
+  border-right: 1px solid $color-border;
+
+  @media (max-width: $bp-md) {
+    border-right: none;
+    border-top: 1px solid $color-border;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-lg $space-lg $space-md;
+  border-bottom: 1px solid $color-border;
+}
+
+.sectionLabel {
+  font-size: $type-scale-xs;
+  text-transform: uppercase;
+  letter-spacing: $tracking-caps;
+  color: $color-text-tertiary;
+  font-weight: $font-weight-medium;
+}
+
+.stream {
+  flex: 1;
+  overflow-y: auto;
+  padding: $space-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-border-strong;
+    border-radius: 2px;
+  }
+
+  @media (max-width: $bp-md) {
+    flex: none;
+    overflow-y: visible;
+  }
+}
+
+.entry {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.roleLabel {
+  font-family: $font-mono;
+  font-size: $type-scale-xs;
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: $tracking-caps;
+  color: $color-text-tertiary;
+}
+
+.content {
+  font-size: $type-scale-sm;
+  line-height: $leading-relaxed;
+  color: $color-text-primary;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
+
+.user {
+  padding-left: $space-md;
+  opacity: 0.6;
+
+  .content {
+    color: $color-text-secondary;
+    font-style: italic;
+  }
+}
+
+.assistant {
+  padding-left: $space-md;
+  border-left: 2px solid $color-accent;
+
+  .roleLabel {
+    color: $color-accent;
+  }
+}
+
+.thinking {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.thinkingContent {
+  display: flex;
+  align-items: center;
+  min-height: 1.5rem;
+}
+
+.thinkingText {
+  font-size: $type-scale-sm;
+  color: $color-text-tertiary;
+  font-style: italic;
+}
+
+.typingDots {
+  display: flex;
+  gap: $space-2xs;
+  align-items: center;
+}
+
+.dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: $color-text-tertiary;
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xs;
+  padding: $space-sm $space-lg;
+  border-top: 1px solid $color-border;
+}
+
+.suggestionChip {
+  font-family: $font-mono;
+  font-size: $type-scale-xs;
+  padding: $space-xs $space-sm;
+  border: 1px solid $color-border-strong;
+  border-radius: $radius-lg;
+  color: $color-text-secondary;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: $color-text-primary;
+    color: $color-text-inverse;
+    border-color: $color-text-primary;
+  }
+}
+
+.inputBar {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  padding: $space-md $space-lg;
+  border-top: 1px solid $color-border;
+
+  @media (max-width: $bp-md) {
+    position: sticky;
+    bottom: 0;
+    background: $color-bg;
+    z-index: 5;
+  }
+}
+
+.input {
+  flex: 1;
+  font-size: $type-scale-sm;
+  padding: $space-xs 0;
+  color: $color-text-primary;
+
+  &::placeholder {
+    color: $color-text-tertiary;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+  }
+}
+
+.sendButton {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: $color-text-primary;
+  color: $color-text-inverse;
+  font-size: $type-scale-base;
+  font-weight: $font-weight-semibold;
+  transition: opacity 0.15s ease;
+
+  &:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):hover {
+    opacity: 0.8;
+  }
+}
+
+.swapWrapper {
+  position: relative;
+
+  &:hover .swapTooltip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: $bp-md) {
+    display: none;
+  }
+}
+
+.swapButton {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-md;
+  border: 1px solid $color-border;
+  color: $color-text-tertiary;
+  transition: all 0.15s ease;
+
+  &:hover {
+    color: $color-text-primary;
+    border-color: $color-text-primary;
+    background: $color-accent-soft;
+  }
+}
+
+.swapTooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  transform: translateY(-4px);
+  background: $color-tooltip-bg;
+  color: $color-tooltip-text;
+  font-size: $type-scale-xs;
+  font-family: $font-mono;
+  padding: $space-2xs $space-xs;
+  border-radius: $radius-md;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+  z-index: 10;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: 8px;
+    transform: rotate(45deg);
+    width: 8px;
+    height: 8px;
+    background: $color-tooltip-bg;
+  }
+}

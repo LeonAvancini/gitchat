@@ -69,6 +69,7 @@ The left side is an editorial layout — big serif name, contribution heatmap, r
 - A richer mobile experience — possibly a slide-up conversation drawer instead of the current stacked layout
 - Smarter chat responses, possibly backed by something more flexible than pattern matching
 - Unit tests for the stats engine and contribution generator
+- Persist chat history so conversations survive page refreshes, with an explicit "end conversation" action that lets users close a session while keeping the transcript available on return
 
 ## Details worth noticing
 

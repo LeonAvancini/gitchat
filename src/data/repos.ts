@@ -1,0 +1,58 @@
+import type { Repository } from '../types';
+
+export const mockRepos: Repository[] = [
+  {
+    name: 'concourse-takehome',
+    description: 'A design-forward GitHub profile chat UI — built for the Concourse take-home',
+    language: 'TypeScript',
+    stars: 2412,
+    forks: 187,
+    updatedAt: '2026-04-08',
+    isArchived: false,
+  },
+  {
+    name: 'rustward',
+    description: 'Zero-copy binary serialization for high-throughput network protocols',
+    language: 'Rust',
+    stars: 1870,
+    forks: 94,
+    updatedAt: '2026-03-28',
+    isArchived: false,
+  },
+  {
+    name: 'mux',
+    description: 'Lightweight HTTP multiplexer with middleware chaining and OpenTelemetry',
+    language: 'Go',
+    stars: 940,
+    forks: 63,
+    updatedAt: '2026-03-15',
+    isArchived: false,
+  },
+  {
+    name: 'tsconfig-strict',
+    description: 'Opinionated shared TypeScript configs for monorepo setups',
+    language: 'TypeScript',
+    stars: 512,
+    forks: 41,
+    updatedAt: '2026-02-20',
+    isArchived: false,
+  },
+  {
+    name: 'datasketch',
+    description: 'Exploratory data analysis notebooks with inline visualizations',
+    language: 'Python',
+    stars: 280,
+    forks: 22,
+    updatedAt: '2025-12-10',
+    isArchived: false,
+  },
+  {
+    name: 'dotfiles',
+    description: 'Personal dev environment — zsh, neovim, tmux, and git aliases',
+    language: 'Shell',
+    stars: 85,
+    forks: 12,
+    updatedAt: '2026-01-05',
+    isArchived: false,
+  },
+];

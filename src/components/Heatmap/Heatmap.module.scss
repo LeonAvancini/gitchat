@@ -1,0 +1,181 @@
+@use '../../styles/tokens' as *;
+
+.heatmap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  padding: $space-xl 0 $space-lg;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: $space-xs;
+}
+
+.total {
+  font-family: $font-mono;
+  font-size: $type-scale-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.period {
+  font-size: $type-scale-xs;
+  color: $color-text-tertiary;
+}
+
+.graphWrapper {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-border-strong;
+    border-radius: 2px;
+  }
+}
+
+.graph {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 720px;
+}
+
+.monthLabel {
+  font-family: $font-body;
+  font-size: 10px;
+  fill: $color-text-tertiary;
+}
+
+.level0 {
+  fill: $color-heatmap-empty;
+  background-color: $color-heatmap-empty;
+}
+.level1 {
+  fill: $color-heatmap-l1;
+  background-color: $color-heatmap-l1;
+}
+.level2 {
+  fill: $color-heatmap-l2;
+  background-color: $color-heatmap-l2;
+}
+.level3 {
+  fill: $color-heatmap-l3;
+  background-color: $color-heatmap-l3;
+}
+.level4 {
+  fill: $color-heatmap-l4;
+  background-color: $color-heatmap-l4;
+}
+
+.cell {
+  cursor: pointer;
+  transition:
+    filter 0.15s ease,
+    transform 0.1s ease;
+
+  &:hover {
+    filter: brightness(1.15);
+  }
+
+  &:active {
+    transform: scale(0.85);
+  }
+}
+
+.tooltip {
+  position: absolute;
+  transform: translate(-50%, calc(-100% - 14px));
+  background: $color-tooltip-bg;
+  color: $color-tooltip-text;
+  padding: $space-xs $space-sm;
+  border-radius: $radius-md;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xs;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    background: $color-tooltip-bg;
+  }
+}
+
+.tooltipCount {
+  font-family: $font-mono;
+  font-size: $type-scale-xs;
+  font-weight: $font-weight-medium;
+}
+
+.tooltipDate {
+  font-size: $type-scale-xs;
+  color: $color-text-tertiary;
+}
+
+.legend {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-lg;
+  padding-top: $space-sm;
+  border-top: 1px solid $color-border;
+
+  @media (max-width: $bp-sm) {
+    flex-direction: column;
+    gap: $space-sm;
+  }
+}
+
+.legendDescription {
+  font-size: $type-scale-xs;
+  line-height: $leading-normal;
+  color: $color-text-tertiary;
+  max-width: 28rem;
+}
+
+.legendScale {
+  display: flex;
+  gap: $space-sm;
+  flex-shrink: 0;
+}
+
+.legendTier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2xs;
+}
+
+.legendCell {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: $radius-sm;
+}
+
+.legendTierLabel {
+  font-family: $font-mono;
+  font-size: 10px;
+  color: $color-text-tertiary;
+  white-space: nowrap;
+}

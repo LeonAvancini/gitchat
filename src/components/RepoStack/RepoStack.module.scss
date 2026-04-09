@@ -1,0 +1,102 @@
+@use '../../styles/tokens' as *;
+
+.repoStack {
+  --bar-l1: #{$color-heatmap-l1};
+  --bar-l2: #{$color-heatmap-l2};
+  --bar-l3: #{$color-heatmap-l3};
+  --bar-l4: #{$color-heatmap-l4};
+
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  padding: $space-xl 0 $space-lg;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: $space-xs;
+}
+
+.count {
+  font-family: $font-mono;
+  font-size: $type-scale-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.sort {
+  font-size: $type-scale-xs;
+  color: $color-text-tertiary;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  height: 2.25rem;
+  padding: 0 $space-sm;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition:
+    filter 0.15s ease,
+    transform 0.1s ease;
+  min-width: 0;
+
+  &:hover {
+    filter: brightness(1.15);
+  }
+
+  &:active {
+    transform: scaleX(0.98);
+  }
+}
+
+.repoName {
+  font-family: $font-mono;
+  font-size: $type-scale-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-inverse;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.langDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.langName {
+  font-size: $type-scale-xs;
+  color: $color-text-tertiary;
+}
+
+.stars {
+  font-family: $font-mono;
+  font-size: $type-scale-xs;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+}

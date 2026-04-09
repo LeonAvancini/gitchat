@@ -30,7 +30,12 @@ export interface WeekColumn {
   weekIndex: number;
 }
 
-export type ChatRole = 'user' | 'assistant';
+export const ChatRole = {
+  User: 'user',
+  Assistant: 'assistant',
+} as const;
+
+export type ChatRole = (typeof ChatRole)[keyof typeof ChatRole];
 
 export interface ChatMessage {
   id: string;
@@ -39,7 +44,13 @@ export interface ChatMessage {
   timestamp: number;
 }
 
-export type ChatStatus = 'idle' | 'thinking' | 'typing';
+export const ChatStatus = {
+  Idle: 'idle',
+  Thinking: 'thinking',
+  Typing: 'typing',
+} as const;
+
+export type ChatStatus = (typeof ChatStatus)[keyof typeof ChatStatus];
 
 export interface ContributionStats {
   totalContributions: number;
